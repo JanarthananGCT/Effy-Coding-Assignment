@@ -106,6 +106,8 @@ export default function getCompaniesById() {
                   name={data.Name}
                   id={data.Id}
                   info={data.Coordinates.Address}
+                  lat={data.Coordinates.latitude}
+                  long={data.Coordinates.longitude}
                 />
               )}
             </div>
