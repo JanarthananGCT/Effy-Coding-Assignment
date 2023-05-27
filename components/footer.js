@@ -81,7 +81,7 @@ function Footer() {
         <hr className="hru mx-9 mb-5" />
         <div className="flex items-center justify-between">
           <div className="foottext pl-8">
-            <Link href="/about">©️ ThinkEffy - 2023</Link>
+            <Link href="/">©️ ThinkEffy - 2023</Link>
           </div>
         </div>
       </div>
