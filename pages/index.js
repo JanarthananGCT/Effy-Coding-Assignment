@@ -15,15 +15,13 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
                 <div className=" flex items-center justify-center">
                   <h1 className="xl:text-4xl lg:text-3xl  md:text-2xl text-[26px] text-green-600 font-normal pb-5">
-                    The Idea Behind Me
+                    The Short Intro About Me
                   </h1>
                 </div>
                 <div className=" rounded-md flex items-center justify-center xl:text-xl lg:text-lg md:text-lg xl:leading-[197%] lg:leading-[197%] md:leading-[197%] sm:leading-[197%] leading-[197%] font-medium text-gray-700   text-center px-4">
-                  To Inspire, Enable, and Facilitate the creation and nurturing
-                  of Ideas that can catalyse India's path to unprecedented
-                  innovation and growth.To Inspire, Enable, and Facilitate the
-                  creation and nurturing of Ideas that can catalyse India's path
-                  to unprecedented innovation and growth.
+                  I’m an avid learner looking for a job in the domain of
+                  development where I could further hone my skills and get to
+                  know the workplace culture. Name a tech and I will get there.
                 </div>
               </div>
             </div>
