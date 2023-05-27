@@ -1,12 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import facebook from "../public/facebook.svg";
-import twitter from "../public/twitter.svg";
-import Image from "next/image";
+
 import { useRouter } from "next/router";
 
-import telegram from "../public/telegram.svg";
-import logo from "../public/logo.svg";
 function Footer() {
   const router = useRouter();
   return (
@@ -25,7 +21,7 @@ function Footer() {
                   <Link href="/getCompaniesById">Filter Company </Link>
                 </li>
                 <li className="py-1 foottext hover:text-green-500">
-                  <Link href="/about#vission">Add a Company</Link>
+                  <Link href="/addCompany">Add a Company</Link>
                 </li>
                 <li className="py-1 foottext hover:text-green-500">
                   <Link href="/updateCompany">Update Company Details</Link>
@@ -52,7 +48,7 @@ function Footer() {
                   <Link href="/getEmployeeById">Filter Employees</Link>
                 </li>
                 <li className="py-1 foottext hover:text-green-500">
-                  <Link href="/teams#bod1">Create Employees Record</Link>
+                  <Link href="/addEmployee">Create Employees Record</Link>
                 </li>
                 <li className="py-1 foottext hover:text-green-500">
                   <Link href="/updateEmployee">Update Employees Details</Link>

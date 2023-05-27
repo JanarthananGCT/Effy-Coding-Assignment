@@ -61,13 +61,14 @@ export default function getEmployeeById() {
                     onChange={(e) => {
                       setId(e.target.value);
                     }}
-                    required
+                    required={true}
                   />
                 </div>
 
                 <div className="flex items-center pt-3 justify-center">
                   <button
                     onClick={getDetails}
+                    type="submit"
                     className="border-2 border-black bg-black text-white px-4 py-2 mb-3 sm:w-[320px] w-[260px] font-medium"
                   >
                     Get Details

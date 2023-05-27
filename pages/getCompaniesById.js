@@ -62,7 +62,7 @@ export default function getCompaniesById() {
                     onChange={(e) => {
                       setId(e.target.value);
                     }}
-                    required
+                    required={true}
                   />
                 </div>
 

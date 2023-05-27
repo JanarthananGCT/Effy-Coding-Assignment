@@ -16,6 +16,7 @@ export default function addEmployees() {
   const [date, setDate] = useState(null);
   const [des, setDes] = useState("");
   const [email, setEmail] = useState("");
+  const [arr, setArr] = useState([]);
   const [cid, seCid] = useState("");
   const toastifySuccess = () => {
     toast.success("Successfully Added!", {
@@ -41,8 +42,15 @@ export default function addEmployees() {
       DOB: date,
       Active: true,
     });
+    const comp = await axios.post("/api/companies/GetCompanyById", {
+      Id: cid,
+    });
+    setArr(comp.data.Users_Ids);
+    const newarr = arr.push(id);
+    const update = await axios.post("/api/companies/UpdateUsersToCompany", { Id: cid, Users_Ids: newarr });
+    console.log(update)
     setData(res.data);
-    toastifySuccess()
+    toastifySuccess();
     setLoader(false);
     console.log(res);
   };
@@ -50,7 +58,7 @@ export default function addEmployees() {
     <div>
       <Navbar />
       <div className="pt-10">
-      <ToastContainer />
+        <ToastContainer />
         <span className="flex items-center px-1 text-center justify-center lg:text-4xl md:text-3xl text-[26px] font-semibold text-green-600 uppercase pb-5">
           Add Employee Details
         </span>
@@ -187,7 +195,6 @@ export default function addEmployees() {
                   id={data.Id}
                   cid={data.Company_Id}
                   email={data.Email}
-                 
                 />
               )}
             </div>
