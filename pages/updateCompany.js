@@ -41,7 +41,7 @@ export default function updateCompany() {
   };
   const addComp = async (e) => {
     e.preventDefault();
-    if ((id = null)) {
+    if ((id == null)) {
       toastifyFailure();
     } else {
       const res = await axios.post("/api/companies/UpdateCompany", {
