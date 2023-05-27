@@ -7,7 +7,7 @@ import mission from "../public/mission.svg";
 import hero from "../public/hero.jpg";
 const inter = Inter({ subsets: ["latin"] });
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
-
+import MapContainer from "@/components/MapContainer";
 export default function Home() {
   return (
     <div>
@@ -37,7 +37,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-
+     
       <Footer />
     </div>
   );
