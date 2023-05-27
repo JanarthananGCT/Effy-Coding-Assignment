@@ -39,7 +39,7 @@ export default function listEmployees() {
             {data.map((cont) => (
               <div className="p-4 rounded-md flex items-center justify-center font-medium">
                 <EmployeeCard
-                  name={cont.First_Name + cont.Last_Name}
+                  name={cont.First_Name +" "+ cont.Last_Name}
                   des={cont.Designation}
                   dob={cont.DOB}
                   id={cont.Id}

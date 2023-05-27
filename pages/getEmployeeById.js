@@ -102,7 +102,7 @@ export default function getEmployeeById() {
                 ></Player>
               ) : (
                 <EmployeeCard
-                  name={data.First_Name + data.Last_Name}
+                  name={data.First_Name +" "+ data.Last_Name}
                   des={data.Designation}
                   dob={data.DOB}
                   id={data.Id}

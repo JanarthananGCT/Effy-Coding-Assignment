@@ -194,7 +194,7 @@ export default function addEmployees() {
                 ></Player>
               ) : (
                 <EmployeeCard
-                  name={cont.First_Name + cont.Last_Name}
+                  name={cont.First_Name +" "+ cont.Last_Name}
                   des={cont.Designation}
                   dob={cont.DOB}
                   id={cont.Id}
