@@ -24,15 +24,31 @@ export default function getEmployeeById() {
       theme: "light",
     });
   };
+  const toastifyFailure = () => {
+    toast.error("All Fields are Required !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const getDetails = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/users/GetUserById", {
-      Id: id,
-    });
-    setData(res.data);
-    setLoader(false);
-    toastifySuccess()
-    console.log(res);
+    if (id == null) {
+      toastifyFailure();
+    } else {
+      const res = await axios.post("/api/users/GetUserById", {
+        Id: id,
+      });
+      setData(res.data);
+      setLoader(false);
+      toastifySuccess();
+      console.log(res);
+    }
   };
 
   return (

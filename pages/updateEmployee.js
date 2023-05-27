@@ -29,25 +29,41 @@ export default function addEmployees() {
       theme: "light",
     });
   };
+  const toastifyFailure = () => {
+    toast.error("All Fields are Required !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const addEmployee = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/users/UpdateUser", {
-      First_Name: fname,
-      Last_Name: lname,
-      Email: email,
-      Id: id,
-      Company_Id: cid,
-      Designation: des,
-      DOB: date,
-      Active: true,
-    });
-    console.log(res);
-    toastifySuccess();
-    const cont = await axios.post("/api/users/GetUserById", {
-      Id: id,
-    });
-    setCont(cont.data);
-    setLoader(false);
+    if (id == null) {
+      toastifyFailure();
+    } else {
+      const res = await axios.post("/api/users/UpdateUser", {
+        First_Name: fname,
+        Last_Name: lname,
+        Email: email,
+        Id: id,
+        Company_Id: cid,
+        Designation: des,
+        DOB: date,
+        Active: true,
+      });
+      console.log(res);
+      toastifySuccess();
+      const cont = await axios.post("/api/users/GetUserById", {
+        Id: id,
+      });
+      setCont(cont.data);
+      setLoader(false);
+    }
   };
   return (
     <div>

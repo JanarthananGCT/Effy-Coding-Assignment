@@ -30,29 +30,52 @@ export default function addEmployees() {
       theme: "light",
     });
   };
+  const toastifyFailure = () => {
+    toast.error("All Fields are Required !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const addEmployee = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/users/CreateUser", {
-      First_Name: fname,
-      Last_Name: lname,
-      Email: email,
-      Id: id,
-      Company_Id: cid,
-      Designation: des,
-      DOB: date,
-      Active: true,
-    });
-    const comp = await axios.post("/api/companies/GetCompanyById", {
-      Id: cid,
-    });
-    setArr(comp.data.Users_Ids);
-    const newarr = arr.push(id);
-    const update = await axios.post("/api/companies/UpdateUsersToCompany", { Id: cid, Users_Ids: newarr });
-    console.log(update)
-    setData(res.data);
-    toastifySuccess();
-    setLoader(false);
-    console.log(res);
+    if (id == null) {
+      toastifyFailure();
+    } else {
+      const res = await axios.post("/api/users/CreateUser", {
+        First_Name: fname,
+        Last_Name: lname,
+        Email: email,
+        Id: id,
+        Company_Id: cid,
+        Designation: des,
+        DOB: date,
+        Active: true,
+      });
+      // console.log(update);
+      setData(res.data);
+      toastifySuccess();
+      setLoader(false);
+      console.log(res);
+      const comp = await axios.post("/api/companies/GetCompanyById", {
+        Id: cid,
+      });
+      if (comp.data == null) {
+        toastifyFailure()
+      } else {
+        setArr(comp.data.Users_Ids);
+        const newarr = arr.push(id);
+        const update = await axios.post("/api/companies/UpdateUsersToCompany", {
+          Id: cid,
+          Users_Ids: newarr,
+        });
+      }
+    }
   };
   return (
     <div>

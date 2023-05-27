@@ -27,16 +27,32 @@ export default function updateCompany() {
       theme: "light",
     });
   };
+  const toastifyFailure = () => {
+    toast.error("All Fields are Required !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const addComp = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/companies/UpdateCompany", {
-      Name: name,
-      Id: id,
+    if ((id = null)) {
+      toastifyFailure();
+    } else {
+      const res = await axios.post("/api/companies/UpdateCompany", {
+        Name: name,
+        Id: id,
 
-      Coordinates: cord,
-    });
-    toastifySuccess()
-    console.log(res);
+        Coordinates: cord,
+      });
+      toastifySuccess();
+      console.log(res);
+    }
   };
   const getLoc = async () => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {

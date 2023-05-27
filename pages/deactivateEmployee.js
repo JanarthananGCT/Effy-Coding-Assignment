@@ -23,19 +23,35 @@ export default function deActivateEmployee() {
       theme: "light",
     });
   };
+  const toastifyFailure = () => {
+    toast.error("All Fields are Required !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const getDetails = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/users/DeactivateUser", {
-      Id: id,
-    });
+    if (id == null) {
+      toastifyFailure();
+    } else {
+      const res = await axios.post("/api/users/DeactivateUser", {
+        Id: id,
+      });
 
-    console.log(res);
-    const cont = await axios.post("/api/users/GetUserById", {
-      Id: id,
-    });
-    setCont(cont.data);
-    toastifySuccess()
-    setLoader(false);
+      console.log(res);
+      const cont = await axios.post("/api/users/GetUserById", {
+        Id: id,
+      });
+      setCont(cont.data);
+      toastifySuccess();
+      setLoader(false);
+    }
   };
 
   return (
@@ -89,10 +105,10 @@ export default function deActivateEmployee() {
               ) : (
                 <EmployeeCard
                   name={cont.First_Name + cont.Last_Name}
-                  des={cont.Designstion}
+                  des={cont.Designation}
                   dob={cont.DOB}
                   id={cont.Id}
-                  c_id={cont.Company_Id}
+                  cid={cont.Company_Id}
                   email={cont.Email}
                   info="Leading global trends impacting India"
                 />

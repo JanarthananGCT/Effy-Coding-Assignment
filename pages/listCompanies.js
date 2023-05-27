@@ -39,7 +39,7 @@ export default function listCompanies() {
       ) : (
         <div className=" bg-white pb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-4">
-            {data.map((cont) => (
+            {data?.map((cont) => (
               <div className="p-4 rounded-md flex items-center justify-center font-medium">
                 <CompanyCard
                   name={cont.Name}

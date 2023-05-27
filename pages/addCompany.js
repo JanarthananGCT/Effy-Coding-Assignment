@@ -29,7 +29,7 @@ export default function addCompany() {
     });
   };
   const toastifyFailure = () => {
-    toast.error("Error !", {
+    toast.error("All Fields are Required !", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -42,16 +42,20 @@ export default function addCompany() {
   };
   const addComp = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/companies/CreateCompanies", {
-      Name: name,
-      Id: id,
+    if (id == null) {
+      toastifyFailure()
+    } else {
+      const res = await axios.post("/api/companies/CreateCompanies", {
+        Name: name,
+        Id: id,
 
-      Coordinates: cord,
-    });
-    setRes(res.data);
-    toastifySuccess()
-    setLoader(false);
-    console.log(res);
+        Coordinates: cord,
+      });
+      setRes(res.data);
+      toastifySuccess();
+      setLoader(false);
+      console.log(res);
+    }
   };
   const getLoc = async () => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {

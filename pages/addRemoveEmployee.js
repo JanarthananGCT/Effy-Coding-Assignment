@@ -25,6 +25,18 @@ export default function addOrRemoveEmployee() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("All Fields are Required !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const toastifyFailure = () => {
     toast.error("Employee Removed !", {
       position: "top-right",
@@ -38,34 +50,42 @@ export default function addOrRemoveEmployee() {
     });
   };
   const addUser = async (e) => {
-    e.preventDefault();
-    const res = await axios.post("/api/companies/GetCompanyById", {
-      Id: comp,
-    });
-    await setArr(res.data.Users_Ids);
-    arr.push(id);
-    const up = await axios.post("/api/companies/UpdateUsersToCompany", {
-      Id: comp,
-      Users_Ids: arr,
-    });
-    toastifySuccess()
-    console.log(up);
+    if (id == null) {
+      toastifyError();
+    } else {
+      e.preventDefault();
+      const res = await axios.post("/api/companies/GetCompanyById", {
+        Id: comp,
+      });
+      await setArr(res.data.Users_Ids);
+      arr.push(id);
+      const up = await axios.post("/api/companies/UpdateUsersToCompany", {
+        Id: comp,
+        Users_Ids: arr,
+      });
+      toastifySuccess();
+      console.log(up);
+    }
   };
   const removeUser = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/companies/GetCompanyById", {
-      Id: comp,
-    });
-    setArr(res.data.Users_Ids);
-    const index = arr.indexOf(id);
-    const x = arr.splice(index, 1);
-    setArr(x);
-    const rem = await axios.post("/api/companies/UpdateUsersToCompany", {
-      Id: comp,
-      Users_Ids: arr,
-    });
-    toastifyFailure()
-    console.log(rem);
+    if (id == null) {
+      toastifyError();
+    } else {
+      const res = await axios.post("/api/companies/GetCompanyById", {
+        Id: comp,
+      });
+      setArr(res.data.Users_Ids);
+      const index = arr.indexOf(id);
+      const x = arr.splice(index, 1);
+      setArr(x);
+      const rem = await axios.post("/api/companies/UpdateUsersToCompany", {
+        Id: comp,
+        Users_Ids: arr,
+      });
+      toastifyFailure();
+      console.log(rem);
+    }
   };
   return (
     <div>

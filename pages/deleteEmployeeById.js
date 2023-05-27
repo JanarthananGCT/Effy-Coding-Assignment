@@ -24,19 +24,35 @@ export default function deleteEmployeeById() {
       theme: "light",
     });
   };
+  const toastifyFailure = () => {
+    toast.error("All Fields are Required !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const getDetails = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/users/DeleteUser", {
-      Id: id,
-    });
+    if (id == null) {
+      toastifyFailure();
+    } else {
+      const res = await axios.post("/api/users/DeleteUser", {
+        Id: id,
+      });
 
-    console.log(res);
-    const cont = await axios.post("/api/users/GetUserById", {
-      Id: id,
-    });
-    setCont(cont.data);
-    toastifySuccess()
-    setLoader(false);
+      console.log(res);
+      const cont = await axios.post("/api/users/GetUserById", {
+        Id: id,
+      });
+      setCont(cont.data);
+      toastifySuccess();
+      setLoader(false);
+    }
   };
 
   return (
