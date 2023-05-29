@@ -14,10 +14,10 @@ export default function addEmployees() {
   const [lname, setLName] = useState(null);
   const [data, setData] = useState(null);
   const [date, setDate] = useState(null);
-  const [des, setDes] = useState("");
-  const [email, setEmail] = useState("");
-  const [arr, setArr] = useState([]);
-  const [cid, seCid] = useState("");
+  const [des, setDes] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [arr, setArr] = useState(null);
+  const [cid, seCid] = useState(null);
   const toastifySuccess = () => {
     toast.success("Successfully Added!", {
       position: "top-right",
@@ -44,7 +44,15 @@ export default function addEmployees() {
   };
   const addEmployee = async (e) => {
     e.preventDefault();
-    if (id == null) {
+    if (
+      id == null ||
+      fname == null ||
+      lname == null ||
+      date == null ||
+      des == null ||
+      email == null ||
+      cid == null
+    ) {
       toastifyFailure();
     } else {
       const res = await axios.post("/api/users/CreateUser", {
@@ -66,7 +74,7 @@ export default function addEmployees() {
         Id: cid,
       });
       if (comp.data == null) {
-        toastifyFailure()
+        toastifyFailure();
       } else {
         setArr(comp.data.Users_Ids);
         const newarr = arr.push(id);

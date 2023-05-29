@@ -11,11 +11,11 @@ import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import CompanyCard from "@/components/CompanyCard";
 export default function addCompany() {
   const [loader, setLoader] = useState(true);
-  const [name, setName] = useState("");
-  const [add, setAdd] = useState("");
-  const [res, setRes] = useState("");
+  const [name, setName] = useState(null);
+  const [add, setAdd] = useState(null);
+  const [res, setRes] = useState(null);
   const [id, setId] = useState(null);
-  const [cord, setCord] = useState({});
+  const [cord, setCord] = useState(null);
   const toastifySuccess = () => {
     toast.success("Successfully Added!", {
       position: "top-right",
@@ -42,8 +42,8 @@ export default function addCompany() {
   };
   const addComp = async (e) => {
     e.preventDefault();
-    if (id == null) {
-      toastifyFailure()
+    if (id == null || name == null || add == null || cord == null) {
+      toastifyFailure();
     } else {
       const res = await axios.post("/api/companies/CreateCompanies", {
         Name: name,

@@ -43,7 +43,15 @@ export default function addEmployees() {
   };
   const addEmployee = async (e) => {
     e.preventDefault();
-    if (id == null) {
+    if (
+      id == null ||
+      fname == null ||
+      lname == null ||
+      date == null ||
+      des == null ||
+      email == null ||
+      cid == null
+    ) {
       toastifyFailure();
     } else {
       const res = await axios.post("/api/users/UpdateUser", {
@@ -194,7 +202,7 @@ export default function addEmployees() {
                 ></Player>
               ) : (
                 <EmployeeCard
-                  name={cont.First_Name +" "+ cont.Last_Name}
+                  name={cont.First_Name + " " + cont.Last_Name}
                   des={cont.Designation}
                   dob={cont.DOB}
                   id={cont.Id}

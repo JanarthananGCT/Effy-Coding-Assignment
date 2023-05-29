@@ -11,10 +11,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 export default function updateCompany() {
   const [loader, setLoader] = useState(true);
-  const [name, setName] = useState("");
-  const [add, setAdd] = useState("");
+  const [name, setName] = useState(null);
+  const [add, setAdd] = useState(null);
   const [id, setId] = useState(null);
-  const [cord, setCord] = useState({});
+  const [cord, setCord] = useState(null);
   const toastifySuccess = () => {
     toast.success("Updated Successfully!", {
       position: "top-right",
@@ -41,7 +41,7 @@ export default function updateCompany() {
   };
   const addComp = async (e) => {
     e.preventDefault();
-    if ((id == null)) {
+    if ((id == null||name==null||add==null||cord==null)) {
       toastifyFailure();
     } else {
       const res = await axios.post("/api/companies/UpdateCompany", {
