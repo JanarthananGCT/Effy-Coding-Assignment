@@ -50,6 +50,30 @@ export default function addOrRemoveEmployee() {
       theme: "light",
     });
   };
+  const toastifyComapny = () => {
+    toast.error("Comapny Record Not Found !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+  const toastifyEmployee = () => {
+    toast.error("Employee Already Exists !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   // async function apiCall() {
   //   return result.data;
   // }
@@ -65,16 +89,26 @@ export default function addOrRemoveEmployee() {
     if (id == null || result.data == null) {
       toastifyError();
     } else {
-      await setArr(result.Users_Ids);
-
-      arr?.push(id);
-      const up = await axios.post("/api/companies/UpdateUsersToCompany", {
+      const det = await axios.post("/api/companies/GetCompanyById", {
         Id: comp,
-        Users_Ids: arr,
       });
-      console.log(up);
-      toastifySuccess();
-      console.log(up);
+      if (det == null) {
+        toastifyComapny();
+      } else {
+        console.log(result.data.Users_Ids);
+        var newarr = result.data.Users_Ids;
+
+        newarr.push(Number(id));
+        var unique = Array.from(new Set(newarr));
+
+        const up = await axios.post("/api/companies/UpdateUsersToCompany", {
+          Id: comp,
+          Users_Ids: unique,
+        });
+        console.log(up);
+        toastifySuccess();
+        console.log(up);
+      }
     }
   };
   const removeUser = async (e) => {
@@ -82,21 +116,23 @@ export default function addOrRemoveEmployee() {
     const result = await axios.post("/api/companies/GetCompanyById", {
       Id: comp,
     });
-    setRes(result.data);
+    // setRes(result.data);
     if (id == null || result == null) {
       toastifyError();
     } else {
-      setArr(result.Users_Ids);
-      const index = arr?.indexOf(id);
-      console.log(index)
-      if (index == -1 ||arr==undefined ) {
+      // setArr(result.Users_Ids);
+      var li = result.data.Users_Ids;
+      const index = li.indexOf(Number(id));
+      console.log(id);
+      console.log(index);
+      if (index == -1) {
         toastifyError();
       } else {
-        const x = arr.splice(index, 1);
-        setArr(x);
+        var x = li.filter((y) => y !== Number(id));
+
         const rem = await axios.post("/api/companies/UpdateUsersToCompany", {
           Id: comp,
-          Users_Ids: arr,
+          Users_Ids: x,
         });
         toastifyFailure();
         console.log(rem);
