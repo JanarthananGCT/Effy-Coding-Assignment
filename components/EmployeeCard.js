@@ -25,7 +25,7 @@ const EmployeeCard = (props) => {
         </div>
         <div className="flex justify-center items-center">
           <span className="lg:md:text-[18px] md:text-[18px] sm:text-[16px] text-[16px] text-black text-center px-5">
-            DOB: {props.dob}
+            DOB: {props.dob.substring(0, 10)}
           </span>
         </div>
         <div className="flex justify-center items-center">
