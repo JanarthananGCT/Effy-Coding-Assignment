@@ -124,7 +124,7 @@ export default function addEmployees() {
                   </label>
                   <input
                     type="text"
-                    placeholder="Enter the employee Name"
+                    placeholder="Enter the employee first Name"
                     className="border-2 border-slate-300 px-4 py-2  outline-none sm:w-[320px] w-auto"
                     onChange={(e) => {
                       setFName(e.target.value);
@@ -137,7 +137,7 @@ export default function addEmployees() {
                   </label>
                   <input
                     type="text"
-                    placeholder="Enter the employee Name"
+                    placeholder="Enter the employee last Name"
                     className="border-2 border-slate-300 px-4 py-2  outline-none sm:w-[320px] w-auto"
                     onChange={(e) => {
                       setLName(e.target.value);

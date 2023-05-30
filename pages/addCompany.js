@@ -103,7 +103,7 @@ export default function addCompany() {
                   </label>
                   <input
                     type="Number"
-                    placeholder="Enter the employee Id"
+                    placeholder="Enter the Company Id"
                     className="border-2 border-slate-300 px-4 py-2  outline-none sm:w-[320px] w-auto"
                     onChange={(e) => {
                       setId(e.target.value);
@@ -117,7 +117,7 @@ export default function addCompany() {
                   </label>
                   <input
                     type="text"
-                    placeholder="Enter the employee Name"
+                    placeholder="Enter the Company Name"
                     className="border-2 border-slate-300 px-4 py-2  outline-none sm:w-[320px] w-auto"
                     onChange={(e) => {
                       setName(e.target.value);
@@ -132,7 +132,7 @@ export default function addCompany() {
                   </label>
                   <input
                     type="text"
-                    placeholder="Enter the employee designation"
+                    placeholder="Enter the Company Address"
                     className="border-2 border-slate-300 px-4 py-2  outline-none sm:w-[320px] w-auto"
                     onChange={(e) => {
                       setAdd(e.target.value);

@@ -174,7 +174,7 @@ export default function addOrRemoveEmployee() {
                   </label>
                   <input
                     type="Number"
-                    placeholder="Enter the employee Id"
+                    placeholder="Enter the Company Id"
                     className="border-2 border-slate-300 px-4 py-2  outline-none sm:w-[320px] w-auto"
                     onChange={(e) => {
                       setComp(e.target.value);
