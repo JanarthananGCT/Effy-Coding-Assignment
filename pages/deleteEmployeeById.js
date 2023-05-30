@@ -123,15 +123,19 @@ export default function deleteEmployeeById() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <EmployeeCard
-                  name={cont.First_Name + " " + cont.Last_Name}
-                  des={cont.Designation}
-                  dob={cont.DOB}
-                  id={cont.Id}
-                  cid={cont.Company_Id}
-                  email={cont.Email}
-                  info="Leading global trends impacting India"
-                />
+                <div>
+                  {cont ? (
+                    <EmployeeCard
+                      name={cont.First_Name + " " + cont.Last_Name}
+                      des={cont.Designation}
+                      dob={cont.DOB}
+                      id={cont.Id}
+                      cid={cont.Company_Id}
+                      email={cont.Email}
+                      info="Leading global trends impacting India"
+                    />
+                  ) : null}
+                </div>
               )}
             </div>
           </div>

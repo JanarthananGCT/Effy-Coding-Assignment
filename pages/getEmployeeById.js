@@ -57,11 +57,12 @@ export default function getEmployeeById() {
         Id: id,
       });
       if (res.data == null) {
-        toastifyError()
+        toastifyError();
       } else {
         setData(res.data);
         setLoader(false);
         toastifySuccess();
+        setId(null);
         console.log(res);
       }
     }
@@ -117,15 +118,19 @@ export default function getEmployeeById() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <EmployeeCard
-                  name={data.First_Name + " " + data.Last_Name}
-                  des={data.Designation}
-                  dob={data.DOB}
-                  id={data.Id}
-                  cid={data.Company_Id}
-                  email={data.Email}
-                  info="Leading global trends impacting India"
-                />
+                <div>
+                  {data ? (
+                    <EmployeeCard
+                      name={data.First_Name + " " + data.Last_Name}
+                      des={data.Designation}
+                      dob={data.DOB}
+                      id={data.Id}
+                      cid={data.Company_Id}
+                      email={data.Email}
+                      info="Leading global trends impacting India"
+                    />
+                  ) : null}
+                </div>
               )}
             </div>
           </div>

@@ -70,9 +70,9 @@ export default function updateCompany() {
         const result = await axios.post("/api/companies/GetCompanyById", {
           Id: id,
         });
-        setData(result.data)
+        setData(result.data);
         toastifySuccess();
-        setLoader(false)
+        setLoader(false);
         console.log(res);
       }
     }
@@ -173,13 +173,17 @@ export default function updateCompany() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <CompanyCard
-                  name={data.Name}
-                  id={data.Id}
-                  info={data.Coordinates.Address}
-                  lat={data.Coordinates.latitude}
-                  long={data.Coordinates.longitude}
-                />
+                <div>
+                  {data ? (
+                    <CompanyCard
+                      name={data.Name}
+                      id={data.Id}
+                      info={data.Coordinates.Address}
+                      lat={data.Coordinates.latitude}
+                      long={data.Coordinates.longitude}
+                    />
+                  ) : null}
+                </div>
               )}
             </div>
           </div>

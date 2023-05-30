@@ -58,7 +58,7 @@ export default function deleteCompaniesById() {
         Id: id,
       });
       if (res.data == null) {
-        toastifyError()
+        toastifyError();
       } else {
         setData(res.data);
         setLoader(false);
@@ -120,13 +120,17 @@ export default function deleteCompaniesById() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <CompanyCard
-                  name={data.Name}
-                  id={data.Id}
-                  info={data.Coordinates.Address}
-                  lat={data.Coordinates.latitude}
-                  long={data.Coordinates.longitude}
-                />
+                <div>
+                  {data ? (
+                    <CompanyCard
+                      name={data.Name}
+                      id={data.Id}
+                      info={data.Coordinates.Address}
+                      lat={data.Coordinates.latitude}
+                      long={data.Coordinates.longitude}
+                    />
+                  ) : null}
+                </div>
               )}
             </div>
           </div>

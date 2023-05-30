@@ -57,14 +57,14 @@ export default function getCompaniesById() {
         Id: id,
       });
       setData(res.data);
-      if(res.data==null){
-        toastifyError()
-      }else{
+      if (res.data == null) {
+        toastifyError();
+      } else {
         toastifySuccess();
-      setLoader(false);
-      console.log(res);
+        setId(null);
+        setLoader(false);
+        console.log(res);
       }
-      
     }
   };
   return (
@@ -118,13 +118,17 @@ export default function getCompaniesById() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <CompanyCard
-                  name={data.Name}
-                  id={data.Id}
-                  info={data.Coordinates.Address}
-                  lat={data.Coordinates.latitude}
-                  long={data.Coordinates.longitude}
-                />
+                <div>
+                  {data ? (
+                    <CompanyCard
+                      name={data.Name}
+                      id={data.Id}
+                      info={data.Coordinates.Address}
+                      lat={data.Coordinates.latitude}
+                      long={data.Coordinates.longitude}
+                    />
+                  ) : null}
+                </div>
               )}
             </div>
           </div>

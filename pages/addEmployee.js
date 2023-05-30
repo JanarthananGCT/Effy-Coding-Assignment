@@ -224,14 +224,18 @@ export default function addEmployees() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <EmployeeCard
-                  name={data.First_Name + data.Last_Name}
-                  des={data.Designation}
-                  dob={data.DOB}
-                  id={data.Id}
-                  cid={data.Company_Id}
-                  email={data.Email}
-                />
+                <div>
+                  {data ? (
+                    <EmployeeCard
+                      name={data.First_Name + data.Last_Name}
+                      des={data.Designation}
+                      dob={data.DOB}
+                      id={data.Id}
+                      cid={data.Company_Id}
+                      email={data.Email}
+                    />
+                  ) : null}
+                </div>
               )}
             </div>
           </div>
