@@ -40,21 +40,40 @@ export default function addCompany() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Comapny Id Already Exists !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const addComp = async (e) => {
     e.preventDefault();
     if (id == null || name == null || add == null || cord == null) {
       toastifyFailure();
     } else {
-      const res = await axios.post("/api/companies/CreateCompanies", {
-        Name: name,
+      const result = await axios.post("/api/companies/GetCompanyById", {
         Id: id,
-
-        Coordinates: cord,
       });
-      setRes(res.data);
-      toastifySuccess();
-      setLoader(false);
-      console.log(res);
+      if (result.data == null) {
+        const res = await axios.post("/api/companies/CreateCompanies", {
+          Name: name,
+          Id: id,
+
+          Coordinates: cord,
+        });
+        setRes(res.data);
+        toastifySuccess();
+        setLoader(false);
+        console.log(res);
+      } else {
+        toastifyError();
+      }
     }
   };
   const getLoc = async () => {

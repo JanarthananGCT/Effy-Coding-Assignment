@@ -23,6 +23,18 @@ export default function deActivateEmployee() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Not a Valid Employ Id", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const toastifyFailure = () => {
     toast.error("All Fields are Required !", {
       position: "top-right",
@@ -49,8 +61,12 @@ export default function deActivateEmployee() {
         Id: id,
       });
       setCont(cont.data);
-      toastifySuccess();
-      setLoader(false);
+      if (cont.data == null) {
+        toastifyError();
+      } else {
+        toastifySuccess();
+        setLoader(false);
+      }
     }
   };
 
@@ -103,15 +119,21 @@ export default function deActivateEmployee() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <EmployeeCard
-                  name={cont.First_Name +" "+ cont.Last_Name}
-                  des={cont.Designation}
-                  dob={cont.DOB}
-                  id={cont.Id}
-                  cid={cont.Company_Id}
-                  email={cont.Email}
-                  info="Leading global trends impacting India"
-                />
+                <div>
+                  {cont ? (
+                    <EmployeeCard
+                      name={cont.First_Name + " " + cont.Last_Name}
+                      des={cont.Designation}
+                      dob={cont.DOB}
+                      id={cont.Id}
+                      cid={cont.Company_Id}
+                      email={cont.Email}
+                      info="Leading global trends impacting India"
+                    />
+                  ) : (
+                    toastifyFailure()
+                  )}
+                </div>
               )}
             </div>
           </div>

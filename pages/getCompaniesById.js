@@ -36,27 +36,43 @@ export default function getCompaniesById() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Not a Valid Company Id", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const getDetails = async (e) => {
     e.preventDefault();
-    if(id==null){
-      toastifyFailure()
-    }else{
+    if (id == null) {
+      toastifyFailure();
+    } else {
       const res = await axios.post("/api/companies/GetCompanyById", {
         Id: id,
       });
       setData(res.data);
-      toastifySuccess()
+      if(res.data==null){
+        toastifyError()
+      }else{
+        toastifySuccess();
       setLoader(false);
       console.log(res);
+      }
+      
     }
   };
   return (
     <div>
       <Navbar />
-      
 
       <div className="pt-10">
-      <ToastContainer />
+        <ToastContainer />
         <span className="flex items-center px-1 text-center justify-center lg:text-4xl md:text-3xl text-[26px] font-semibold text-green-600 uppercase pb-5">
           Get Company Details By ID
         </span>

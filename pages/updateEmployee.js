@@ -29,6 +29,18 @@ export default function addEmployees() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Not a Valid Employee Id", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const toastifyFailure = () => {
     toast.error("All Fields are Required !", {
       position: "top-right",
@@ -65,12 +77,16 @@ export default function addEmployees() {
         Active: true,
       });
       console.log(res);
-      toastifySuccess();
-      const cont = await axios.post("/api/users/GetUserById", {
-        Id: id,
-      });
-      setCont(cont.data);
-      setLoader(false);
+      if (res.data.matchedCount == 0) {
+        toastifyError();
+      } else {
+        toastifySuccess();
+        const cont = await axios.post("/api/users/GetUserById", {
+          Id: id,
+        });
+        setCont(cont.data);
+        setLoader(false);
+      }
     }
   };
   return (

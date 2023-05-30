@@ -36,6 +36,18 @@ export default function getEmployeeById() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Not a Valid Employee Id", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const getDetails = async (e) => {
     e.preventDefault();
     if (id == null) {
@@ -44,10 +56,14 @@ export default function getEmployeeById() {
       const res = await axios.post("/api/users/GetUserById", {
         Id: id,
       });
-      setData(res.data);
-      setLoader(false);
-      toastifySuccess();
-      console.log(res);
+      if (res.data == null) {
+        toastifyError()
+      } else {
+        setData(res.data);
+        setLoader(false);
+        toastifySuccess();
+        console.log(res);
+      }
     }
   };
 
@@ -102,7 +118,7 @@ export default function getEmployeeById() {
                 ></Player>
               ) : (
                 <EmployeeCard
-                  name={data.First_Name +" "+ data.Last_Name}
+                  name={data.First_Name + " " + data.Last_Name}
                   des={data.Designation}
                   dob={data.DOB}
                   id={data.Id}

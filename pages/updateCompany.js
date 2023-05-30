@@ -9,11 +9,13 @@ import Image from "next/image";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import CompanyCard from "@/components/CompanyCard";
 export default function updateCompany() {
   const [loader, setLoader] = useState(true);
   const [name, setName] = useState(null);
   const [add, setAdd] = useState(null);
   const [id, setId] = useState(null);
+  const [data, setData] = useState(null);
   const [cord, setCord] = useState(null);
   const toastifySuccess = () => {
     toast.success("Updated Successfully!", {
@@ -39,9 +41,21 @@ export default function updateCompany() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Not a Valid Company Id", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const addComp = async (e) => {
     e.preventDefault();
-    if ((id == null||name==null||add==null||cord==null)) {
+    if (id == null || name == null || add == null || cord == null) {
       toastifyFailure();
     } else {
       const res = await axios.post("/api/companies/UpdateCompany", {
@@ -50,8 +64,17 @@ export default function updateCompany() {
 
         Coordinates: cord,
       });
-      toastifySuccess();
-      console.log(res);
+      if (res.data.matchedCount == 0) {
+        toastifyError();
+      } else {
+        const result = await axios.post("/api/companies/GetCompanyById", {
+          Id: id,
+        });
+        setData(result.data)
+        toastifySuccess();
+        setLoader(false)
+        console.log(res);
+      }
     }
   };
   const getLoc = async () => {
@@ -150,9 +173,12 @@ export default function updateCompany() {
                   className="w-[280px] h-[300px]"
                 ></Player>
               ) : (
-                <EmployeeCard
-                  features={fe3}
-                  info="Curated specialized for India's Leaders"
+                <CompanyCard
+                  name={data.Name}
+                  id={data.Id}
+                  info={data.Coordinates.Address}
+                  lat={data.Coordinates.latitude}
+                  long={data.Coordinates.longitude}
                 />
               )}
             </div>

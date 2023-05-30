@@ -42,6 +42,18 @@ export default function addEmployees() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Employee Id Already Exists !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const addEmployee = async (e) => {
     e.preventDefault();
     if (
@@ -55,33 +67,26 @@ export default function addEmployees() {
     ) {
       toastifyFailure();
     } else {
-      const res = await axios.post("/api/users/CreateUser", {
-        First_Name: fname,
-        Last_Name: lname,
-        Email: email,
+      const result = await axios.post("/api/users/GetUserById", {
         Id: id,
-        Company_Id: cid,
-        Designation: des,
-        DOB: date,
-        Active: true,
       });
-      // console.log(update);
-      setData(res.data);
-      toastifySuccess();
-      setLoader(false);
-      console.log(res);
-      const comp = await axios.post("/api/companies/GetCompanyById", {
-        Id: cid,
-      });
-      if (comp.data == null) {
-        toastifyFailure();
-      } else {
-        setArr(comp.data.Users_Ids);
-        const newarr = arr.push(id);
-        const update = await axios.post("/api/companies/UpdateUsersToCompany", {
-          Id: cid,
-          Users_Ids: newarr,
+      if (result.data == null) {
+        const res = await axios.post("/api/users/CreateUser", {
+          First_Name: fname,
+          Last_Name: lname,
+          Email: email,
+          Id: id,
+          Company_Id: cid,
+          Designation: des,
+          DOB: date,
+          Active: true,
         });
+        setData(res.data);
+        toastifySuccess();
+        setLoader(false);
+        console.log(res);
+      } else {
+        toastifyError();
       }
     }
   };

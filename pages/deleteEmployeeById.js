@@ -24,6 +24,18 @@ export default function deleteEmployeeById() {
       theme: "light",
     });
   };
+  const toastifyError = () => {
+    toast.error("Not a Valid Employee Id", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const toastifyFailure = () => {
     toast.error("All Fields are Required !", {
       position: "top-right",
@@ -41,17 +53,23 @@ export default function deleteEmployeeById() {
     if (id == null) {
       toastifyFailure();
     } else {
-      const res = await axios.post("/api/users/DeleteUser", {
-        Id: id,
-      });
-
-      console.log(res);
       const cont = await axios.post("/api/users/GetUserById", {
         Id: id,
       });
       setCont(cont.data);
-      toastifySuccess();
-      setLoader(false);
+
+      if (cont.data == null) {
+        toastifyError();
+      } else {
+        const res = await axios.post("/api/users/DeleteUser", {
+          Id: id,
+        });
+
+        console.log(res);
+
+        toastifySuccess();
+        setLoader(false);
+      }
     }
   };
 
@@ -106,7 +124,7 @@ export default function deleteEmployeeById() {
                 ></Player>
               ) : (
                 <EmployeeCard
-                  name={cont.First_Name +" "+ cont.Last_Name}
+                  name={cont.First_Name + " " + cont.Last_Name}
                   des={cont.Designation}
                   dob={cont.DOB}
                   id={cont.Id}
